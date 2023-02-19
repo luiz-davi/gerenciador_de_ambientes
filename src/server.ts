@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import '@controllers/UsersController';
+import router from './routes/index';
 
 dotenv.config();
 
@@ -9,10 +10,8 @@ const app = express();
 
 app.use(cors());
 
-app.get('/', (req, res, next) => {
-	res.status(200).json({message: 'here moda foca'});
-});
+router(app);
 
 app.listen(3333, () => {
-	console.log('Servidor rodandor na porta 3333 🚀');
+	console.log('Servidor rodando na porta 3333 🚀');
 });
