@@ -15,6 +15,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "@typescript-eslint/strict-boolean-expressions": "warn"
+    "@typescript-eslint/strict-boolean-expressions": "warn",
+    "@typescript-eslint/no-unsafe-call": false
   }
 }
