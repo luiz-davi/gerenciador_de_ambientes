@@ -1,6 +1,6 @@
 import {User} from '@models/User';
 import index_user from '@services/users/index'
-import { create_user_validation } from 'src/validations/create_user.validation';
+import { create_user_validation } from '@controllers/validations/create_user.validation';
 
 class UsersController {
 	async index(req, res){
