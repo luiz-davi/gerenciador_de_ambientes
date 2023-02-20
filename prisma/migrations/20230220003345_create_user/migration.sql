@@ -1,8 +1,8 @@
 -- CreateTable
 CREATE TABLE "users" (
     "id" SERIAL NOT NULL,
-    "primeiro_nome" TEXT NOT NULL,
-    "segundo_nome" TEXT NOT NULL,
+    "first_name" TEXT NOT NULL,
+    "last_name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "avatar_url" TEXT NOT NULL,
