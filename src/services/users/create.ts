@@ -1,4 +1,5 @@
 import {BaseService} from '@services/base_service';
+import bcrypt from 'bcrypt';
 
 class UserCreate extends BaseService{
   constructor(){
@@ -6,6 +7,9 @@ class UserCreate extends BaseService{
   }
 
   async call(data){
+    delete data.confirm_password;
+    data.password = await bcrypt.hash(data.password, 10);
+    
     const users = await this.prisma.user.create({
       data,
       select: {
