@@ -1,5 +1,6 @@
 import {User} from '@models/User';
-import index_user from '@services/users/index'
+import index_user from '@services/users/index';
+import create_user from '@services/users/create';
 import { create_user_validation } from '@controllers/validations/create_user.validation';
 
 class UsersController {
@@ -10,9 +11,34 @@ class UsersController {
 	}
 
 	async create(req, res){
-		await create_user_validation.validate(req.body, { abortEarly: false });
+		
+		try {
+			await create_user_validation.validate(req.body, { abortEarly: false });
+	
+			const user = await create_user.call(req.body);
+			
+			return res.status(201).json({
+				message: 'Usuário criado com sucesso',
+				user
+			});
 
-		return res.status(200).json({ message: 'here moda foca'});
+		} catch (error) {
+			const errors = { name: error.name, message: error.message, errors: {} };
+			
+			console.log(error.inner);
+			
+			if(error.inner){
+				error.inner.forEach(element => {
+					errors.errors[element.path] = element.errors
+				});
+				
+				return res.status(400).json(errors);
+			}
+
+			return res.status(400).json(error);
+		}
+
+
 	}
 }
 
