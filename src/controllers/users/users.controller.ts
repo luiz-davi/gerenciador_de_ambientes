@@ -1,11 +1,11 @@
 import {User} from '@models/User';
-import index_user from '@services/users/index';
+import show_user from '@services/users/show';
 import create_user from '@services/users/create';
 import { create_user_validation } from '@controllers/validations/create_user.validation';
 
 class UsersController {
 	async index(req, res){
-		const users = await index_user.call();
+		const users = await show_user.call(req.params.id);
 
 		return res.status(200).json(users)
 	}
@@ -35,10 +35,16 @@ class UsersController {
 				return res.status(400).json(errors);
 			}
 
-			return res.status(400).json(error);
+			return res.status(400).json(JSON.stringify(error.message));
 		}
 
 
+	}
+
+	async show(req, res){
+		const user = await show_user.call(Number(req.params.id));
+
+		return res.status(200).json(user)
 	}
 }
 
