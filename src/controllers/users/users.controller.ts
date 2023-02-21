@@ -1,15 +1,12 @@
 import {User} from '@models/User';
 import show_user from '@services/users/show';
 import create_user from '@services/users/create';
-import { create_user_validation } from '@controllers/validations/create_user.validation';
+import update_user from '@services/users/update';
+import { create_user_validation } from '@shared/validations/create_user.validation';
+import { update_user_validation } from '@shared/validations/update_user.validation';
 
 class UsersController {
-	async index(req, res){
-		const users = await show_user.call(req.params.id);
-
-		return res.status(200).json(users)
-	}
-
+	
 	async create(req, res){
 		
 		try {
@@ -24,9 +21,7 @@ class UsersController {
 
 		} catch (error) {
 			const errors = { name: error.name, message: error.message, errors: {} };
-			
-			console.log(error.inner);
-			
+				
 			if(error.inner){
 				error.inner.forEach(element => {
 					errors.errors[element.path] = element.errors
@@ -35,16 +30,52 @@ class UsersController {
 				return res.status(400).json(errors);
 			}
 
-			return res.status(400).json(JSON.stringify(error.message));
+			return res.status(500).json(error);
 		}
-
-
 	}
 
 	async show(req, res){
-		const user = await show_user.call(Number(req.params.id));
+		try {
+			const user = await show_user.call(Number(req.params.id));
+			
+			if(!user){
+				return res.status(400).json({ 
+					name: 'Record not found.',
+					message: 'Usuário não encontrado.',
+					errors: {
+						id: 'Id de usuário inválido.'
+					}
+				});
+			}
 
-		return res.status(200).json(user)
+			return res.status(200).json(user)
+		} catch (error) {
+			return res.status(500).json(error)
+		}
+	}
+
+	async update(req, res){
+		try {
+			await update_user_validation.validate(req.body, { abortEarly: false });
+	
+			const user = await update_user.call(req.body, Number(req.params.id));
+			
+			return res.status(200).json(user);
+		} catch (error) {	
+
+			const errors = { name: error.name, message: error.message, errors: {} };
+				
+			if(error.inner){
+				error.inner.forEach(element => {
+					errors.errors[element.path] = element.errors
+				});
+				
+				return res.status(400).json(errors);
+			}
+
+			return res.status(500).json(error);
+		}
+
 	}
 }
 
