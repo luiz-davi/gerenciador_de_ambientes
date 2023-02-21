@@ -22,7 +22,8 @@
       "@controllers/*": ["./src/controllers/*"],
       "@models/*": ["./src/models/*"],
       "@config/*": ["./src/config/*"],
-      "@services/*": ["./src/services/*"]
+      "@services/*": ["./src/services/*"],
+      "@shared/*": ["./src/shared/*"]
     }
   }
 }

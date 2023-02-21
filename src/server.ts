@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import '@controllers/UsersController';
+import '@controllers/users/users.controller';
 import router from './routes/index';
 
 dotenv.config();
@@ -9,6 +9,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 
 router(app);
 

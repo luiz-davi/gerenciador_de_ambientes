@@ -1,5 +1,7 @@
-import UsersController from "@controllers/UsersController"
+import UsersController from "@controllers/users/users.controller"
 
 export const user_routers = app => {
-    app.get('/users', UsersController.index);
+    app.post('/users', UsersController.create);
+    app.get('/users/:id', UsersController.show);
+    app.patch('/users/:id', UsersController.update);
 }
