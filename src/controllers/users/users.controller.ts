@@ -2,8 +2,10 @@ import {User} from '@models/User';
 import show_user from '@services/users/show';
 import create_user from '@services/users/create';
 import update_user from '@services/users/update';
+import delete_user from '@services/users/delete';
 import { create_user_validation } from '@shared/validations/create_user.validation';
 import { update_user_validation } from '@shared/validations/update_user.validation';
+import { delete_user_validation } from '@shared/validations/delete_user.validation';
 
 class UsersController {
 	
@@ -76,6 +78,28 @@ class UsersController {
 			return res.status(500).json(error);
 		}
 
+	}
+
+	async destroy(req, res){
+		try {
+			await delete_user_validation.validate(req.body, { abortEarly: false });
+			const result = await delete_user.call(req.body.password, Number(req.params.id));
+			
+			return result;
+		} catch (error) {
+			if(error.status_code){
+				return res.status(error.status_code).json({ error: {message: error.message} });
+			}
+
+			const errors = { name: error.name, message: error.message, errors: {} };
+				
+			error.inner.forEach(element => {
+				errors.errors[element.path] = element.errors
+			});
+			
+			return res.status(400).json(errors);
+
+		}
 	}
 }
 
