@@ -42,7 +42,8 @@ class UsersController {
 	async show(req, res){
 
 		try {
-			const user = await show_user.call(Number(req.params.id));
+			
+			const user = req.user;
 			
 			if(!user){
 				return res.status(400).json({ 
@@ -53,7 +54,8 @@ class UsersController {
 					}
 				});
 			}
-
+			
+			delete user.password;
 			return res.status(200).json(user)
 		} catch (error) {
 			return res.status(500).json(error)
