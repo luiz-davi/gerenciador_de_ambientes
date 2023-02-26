@@ -5,6 +5,6 @@ export const user_routers = app => {
     app.post('/users', UsersController.create);
     app.get('/users/show', authMiddleware, UsersController.show);
     app.patch('/users', authMiddleware, UsersController.update);
-    app.delete('/users', UsersController.destroy);
+    app.delete('/users', authMiddleware,UsersController.destroy);
     app.post('/users/login', UsersController.login);
 }
