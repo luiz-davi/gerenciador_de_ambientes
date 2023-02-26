@@ -1,32 +1,25 @@
 import {BaseService} from '@services/base_service';
 import bcrypt from 'bcrypt';
-import { NotAuthrizedError, NotFoundError } from '@shared/errors';
+import { UnauthrizedError, NotFoundError } from '@shared/errors';
+import { User } from '@prisma/client';
 
 class UserDelete extends BaseService{
   constructor(){
     super()
   }
 
-  async call(password: string, id: number){
-    let user = await this.prisma.user.findUnique({
-      where: { id }
-    });
-
-    if(!user){
-      throw new NotFoundError(`Usuário com id ${id} não foi encontrado`);
-    }
+  async call(password: string, user: User){
 
     if(!await bcrypt.compare(password, user.password)){      
-      throw new NotAuthrizedError(`Operação não autorizada`);
+      throw new UnauthrizedError(`Operação não autorizada`);
     }
-    
 
     try {
-      const user = await this.prisma.user.delete({
-        where: { id }
+      const result = await this.prisma.user.delete({
+        where: { id: user.id }
       });
   
-      return user;
+      return result;
     } catch (error) {
       throw {
         name: 'Data base error',

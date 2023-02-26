@@ -89,7 +89,7 @@ class UsersController {
 	async destroy(req, res){
 		try {
 			await delete_user_validation.validate(req.body, { abortEarly: false });
-			const result = await delete_user.call(req.body.password, Number(req.params.id));
+			const result = await delete_user.call(req.body.password, req.user);
 			
 			return result;
 		} catch (error) {
