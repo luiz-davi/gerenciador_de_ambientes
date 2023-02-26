@@ -66,7 +66,7 @@ class UsersController {
 		try {
 			await update_user_validation.validate(req.body, { abortEarly: false });
 	
-			const user = await update_user.call(req.body, Number(req.params.id));
+			const user = await update_user.call(req.body, req.user);
 			
 			return res.status(200).json(user);
 		} catch (error) {	
@@ -81,7 +81,7 @@ class UsersController {
 				return res.status(400).json(errors);
 			}
 
-			return res.status(500).json(error);
+			return res.status(error.status_code).json({ error: { message: error.message } });
 		}
 
 	}
