@@ -15,11 +15,11 @@ export class BadRequestError extends ApiError {
 
 export class NotFoundError extends ApiError {
   constructor(message){
-    super(message, 402);
+    super(message, 404);
   }
 }
 
-export class NotAuthrizedError extends ApiError {
+export class UnauthrizedError extends ApiError {
   constructor(message){
     super(message, 401);
   }
