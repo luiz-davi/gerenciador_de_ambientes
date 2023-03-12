@@ -15,9 +15,10 @@ class UsersController {
 	async create(req, res){
 		
 		try {
+		
 			await create_user_validation.validate(req.body, { abortEarly: false });
 	
-			const user = await create_user.call(req.body);
+			const user = await create_user.call(req.body, req.file);
 			
 			return res.status(201).json({
 				message: 'Usuário criado com sucesso',
