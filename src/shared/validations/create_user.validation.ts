@@ -5,6 +5,5 @@ export const create_user_validation = yup.object({
   last_name: yup.string().required(),
   email: yup.string().email().required(),
   password: yup.string().min(6).required(),
-  phone: yup.string().min(14).max(14).nullable(),
-  avatar_url: yup.string().url().nullable()
+  phone: yup.string().min(14).max(14).nullable()
 });

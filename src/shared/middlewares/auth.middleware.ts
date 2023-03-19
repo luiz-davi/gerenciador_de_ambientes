@@ -16,15 +16,20 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
 
   const token = authorization.split(' ')[1];
 
-  const { id } = jwt.verify(token, process.env.JWT_PASS ?? '') as JwtPayLoad;
+  try {
+    const { id } = jwt.verify(token, process.env.JWT_PASS ?? '') as JwtPayLoad;
 
-  const user = await prisma.user.findUnique({
-    where: { id }
-  });
+    const user = await prisma.user.findUnique({
+      where: { id }
+    });
 
-  if(!user){ return res.status(404).json({ error: { message: 'Token inválido.' } }) }  
+    if(!user){ return res.status(404).json({ error: { message: 'Token inválido.' } }) }  
 
-  req.user = user;
+    req.user = user;
 
-  next();
+    next();
+  } catch (error) {
+    return res.status(404).json({ error: { message: error.message } })
+  }
+  
 }

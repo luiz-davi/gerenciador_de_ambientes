@@ -1,15 +1,19 @@
 import {BaseService} from '@services/base_service';
 import bcrypt from 'bcrypt';
+import upload from '@shared/firebase';
 
 class UserCreate extends BaseService{
   constructor(){
     super()
   }
 
-  async call(data){
+  async call(data, file){
     try {
+      const avatar_url = await upload(file);
+      
       delete data.confirm_password;
       data.password = await bcrypt.hash(data.password, 10);
+      data.avatar_url = avatar_url;
       
       const users = await this.prisma.user.create({
         data,
@@ -19,6 +23,7 @@ class UserCreate extends BaseService{
           last_name: true,
           email: true,
           phone: true,
+          avatar_url: true,
           password: false,
           created_at: true,
           updated_at: false
@@ -33,6 +38,7 @@ class UserCreate extends BaseService{
       };
     }
   }
+  
 }
 
 export default new UserCreate();

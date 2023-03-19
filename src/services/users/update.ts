@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import { BaseService } from "@services/base_service";
 import { User } from '@prisma/client';
 import { UnauthrizedError } from '@shared/errors';
+import upload from '@shared/firebase';
 
 class UserUpdate extends BaseService{
 
@@ -9,9 +10,9 @@ class UserUpdate extends BaseService{
     super()
   }
 
-  async call(data, user: User){
+  async call(data, user: User, file){
 
-    if(!await bcrypt.compare(data.current_password, user.password)){      
+    if(!await bcrypt.compare(data.current_password, user.password)){
       throw new UnauthrizedError('Confirmação de senha atual falhou.');
     }
 
@@ -22,6 +23,12 @@ class UserUpdate extends BaseService{
       if (data.password){
         data.password = await bcrypt.hash(data.password, 10);
       }
+
+      if (file){ 
+        const avatar_url = await upload(file);
+        data.avatar_url = avatar_url;
+      }
+
       const update_user = await this.prisma.user.update({
         where: { id: user.id },
         data

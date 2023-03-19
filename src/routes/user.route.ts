@@ -1,10 +1,16 @@
+import { Router } from "express";
+import multer from 'multer';
+import { storage } from "@config/multer"
 import UsersController from "@controllers/users/users.controller"
 import {authMiddleware} from "@shared/middlewares/auth.middleware";
 
-export const user_routers = app => {
-    app.post('/users', UsersController.create);
-    app.get('/users/show', authMiddleware, UsersController.show);
-    app.patch('/users', authMiddleware, UsersController.update);
-    app.delete('/users', authMiddleware,UsersController.destroy);
-    app.post('/users/login', UsersController.login);
-}
+const upload = storage;
+const routes = Router();
+
+routes.post('/users', upload.single('file'),UsersController.create);
+routes.get('/users/show', authMiddleware, UsersController.show);
+routes.patch('/users', authMiddleware, upload.single('file'), UsersController.update);
+routes.delete('/users', authMiddleware,UsersController.destroy);
+routes.post('/users/login', UsersController.login);
+
+export default routes;

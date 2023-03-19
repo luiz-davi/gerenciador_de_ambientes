@@ -1,7 +1,5 @@
-import {user_routers} from './user.route'
+import user_routes from './user.route'
 
-const router = app => {
-  user_routers(app);
-}
-
-export default router;
+export default {
+  user_routes
+};
