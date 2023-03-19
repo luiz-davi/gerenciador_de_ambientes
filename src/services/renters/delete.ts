@@ -3,7 +3,7 @@ import { UnauthrizedError } from '@shared/errors';
 import { BaseService } from "@services/base_service";
 import { NotFoundError } from "@shared/errors";
 
-class UpdateRenter extends BaseService {
+class DeleteRenter extends BaseService {
   constructor(){
     super();
   }
@@ -22,13 +22,12 @@ class UpdateRenter extends BaseService {
     }
     
     delete data.current_password;
-    const updated_renter = await this.prisma.renter.update({
-      where: { id: renter?.id },
-      data
+    await this.prisma.renter.delete({
+      where: { id: renter?.id }
     });
 
-    return updated_renter;
+    return true;
   }
 }
 
-export default new UpdateRenter();
+export default new DeleteRenter();

@@ -8,5 +8,6 @@ routes.post('/renters', authMiddleware, RentersController.create);
 routes.get('/renters', authMiddleware, RentersController.index);
 routes.get('/renters/:id', authMiddleware, RentersController.show);
 routes.patch('/renters/:id', authMiddleware, RentersController.update);
+routes.delete('/renters/:id', authMiddleware, RentersController.delete);
 
 export default routes;
