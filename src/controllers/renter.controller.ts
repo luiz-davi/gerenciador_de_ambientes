@@ -2,7 +2,9 @@ import { Request, Response } from "express-serve-static-core";
 import create_renter from '@services/renters/create'
 import index_renters from '@services/renters/index';
 import show_renters from '@services/renters/show';
+import update_renter from '@services/renters/update';
 import validations from '@shared/validations/renters'
+import { stat } from "fs";
 
 class RentersController {
 
@@ -47,6 +49,31 @@ class RentersController {
       return res.status(422).json(error)
     }
 
+  }
+
+  async update(req: Request, res: Response){
+    try {
+      await validations.update_renter_validation.validate(req.body, { abortEarly: false });
+
+      const renter = await update_renter.call(Number(req.params.id), req.user, req.body);
+    
+      return res.status(200).json({ renter });
+    } catch (error) {
+      if(error.status_code){
+        return res.status(error.status_code).json({ error: { message: error.message } });
+      }
+
+      if(error.inner){
+			  const errors = { name: error.name, message: error.message, errors: {} };
+				error.inner.forEach(element => {
+					errors.errors[element.path] = element.errors
+				});
+				
+				return res.status(400).json(errors);
+			}
+
+      return res.status(500).json(error);
+    }
   }
 
 }
