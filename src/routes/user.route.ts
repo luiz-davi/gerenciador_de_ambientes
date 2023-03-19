@@ -9,7 +9,7 @@ const routes = Router();
 
 routes.post('/users', upload.single('file'),UsersController.create);
 routes.get('/users/show', authMiddleware, UsersController.show);
-routes.patch('/users', authMiddleware, UsersController.update);
+routes.patch('/users', authMiddleware, upload.single('file'), UsersController.update);
 routes.delete('/users', authMiddleware,UsersController.destroy);
 routes.post('/users/login', UsersController.login);
 

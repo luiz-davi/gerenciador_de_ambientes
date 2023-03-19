@@ -38,8 +38,7 @@ class UserCreate extends BaseService{
       };
     }
   }
-
-
+  
 }
 
 export default new UserCreate();

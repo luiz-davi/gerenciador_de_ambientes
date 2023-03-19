@@ -67,7 +67,7 @@ class UsersController {
 		try {
 			await update_user_validation.validate(req.body, { abortEarly: false });
 	
-			const user = await update_user.call(req.body, req.user);
+			const user = await update_user.call(req.body, req.user, req.file);
 			
 			return res.status(200).json(user);
 		} catch (error) {	
