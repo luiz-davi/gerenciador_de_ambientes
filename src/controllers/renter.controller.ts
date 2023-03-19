@@ -1,6 +1,7 @@
 import { Request, Response } from "express-serve-static-core";
 import create_renter from '@services/renters/create'
 import index_renters from '@services/renters/index';
+import show_renters from '@services/renters/show';
 import validations from '@shared/validations/renters'
 
 class RentersController {
@@ -31,6 +32,21 @@ class RentersController {
     const renters = await index_renters.call(req.user);
 
     return res.status(200).json(renters)
+  }
+
+  async show(req: Request, res: Response){
+    try {
+      const renter = await show_renters.call(Number(req.params.id), req.user);
+      
+      return res.status(200).json({ renter });
+    } catch (error) {
+      if(error.status_code){
+        return res.status(error.status_code).json({ error: { message: error.message } });
+      }
+
+      return res.status(422).json(error)
+    }
+
   }
 
 }

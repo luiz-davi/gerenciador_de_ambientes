@@ -30,9 +30,9 @@ model User {
 model Renter {
   id         Int      @id @default(autoincrement())
   name       String
-  phone      String   @unique
-  email      String   @unique
-  cpf        String   @unique
+  phone      String
+  email      String
+  cpf        String
   user_id    Int
   locator    User     @relation(fields: [user_id], references: [id])
   created_at DateTime @default(now())

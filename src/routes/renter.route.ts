@@ -6,5 +6,6 @@ const routes = Router();
 
 routes.post('/renters', authMiddleware, RentersController.create);
 routes.get('/renters', authMiddleware, RentersController.index);
+routes.get('/renters/:id', authMiddleware, RentersController.show);
 
 export default routes;
