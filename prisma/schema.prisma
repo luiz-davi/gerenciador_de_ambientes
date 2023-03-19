@@ -14,6 +14,7 @@ model User {
   id         Int      @id @default(autoincrement())
   first_name String
   last_name  String
+  surname    String?
   email      String   @unique
   phone      String?  @unique
   password   String
@@ -21,5 +22,21 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
+  renters Renter[]
+
   @@map("users")
+}
+
+model Renter {
+  id         Int      @id @default(autoincrement())
+  name       String
+  phone      String
+  email      String
+  cpf        String
+  user_id    Int
+  locator    User     @relation(fields: [user_id], references: [id])
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("renters")
 }

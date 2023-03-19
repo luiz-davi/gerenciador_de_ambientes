@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import '@controllers/users/users.controller';
+import '@controllers/users.controller';
 import routers from './routes/index';
 
 dotenv.config();
@@ -12,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use(routers.user_routes);
+app.use(routers.renter_routes);
 
 app.listen(3333, () => {
 	console.log('Servidor rodando na porta 3333 🚀');
