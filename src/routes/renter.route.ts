@@ -5,5 +5,6 @@ import {authMiddleware} from "@shared/middlewares/auth.middleware";
 const routes = Router();
 
 routes.post('/renters', authMiddleware, RentersController.create);
+routes.get('/renters', authMiddleware, RentersController.index);
 
 export default routes;
