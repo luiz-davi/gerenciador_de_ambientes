@@ -1,7 +1,6 @@
 import { Router } from "express";
-import multer from 'multer';
 import { storage } from "@config/multer"
-import UsersController from "@controllers/users/users.controller"
+import UsersController from "@controllers/users.controller"
 import {authMiddleware} from "@shared/middlewares/auth.middleware";
 
 const upload = storage;

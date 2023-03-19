@@ -22,21 +22,21 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  posts Locator[]
+  posts Renter[]
 
   @@map("users")
 }
 
-model Locator {
+model Renter {
   id         Int      @id @default(autoincrement())
   name       String
   phone      String   @unique
   email      String   @unique
   cpf        String   @unique
   user_id    Int
-  author     User     @relation(fields: [user_id], references: [id])
+  locator    User     @relation(fields: [user_id], references: [id])
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  @@map("locadors")
+  @@map("renters")
 }

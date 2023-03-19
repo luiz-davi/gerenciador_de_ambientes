@@ -1,5 +1,3 @@
-import {User} from '@models/User';
-import show_user from '@services/users/show';
 import create_user from '@services/users/create';
 import update_user from '@services/users/update';
 import delete_user from '@services/users/delete';

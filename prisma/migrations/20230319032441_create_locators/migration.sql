@@ -2,7 +2,7 @@
 ALTER TABLE "users" ADD COLUMN     "surname" TEXT;
 
 -- CreateTable
-CREATE TABLE "locadors" (
+CREATE TABLE "locators" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
@@ -12,17 +12,17 @@ CREATE TABLE "locadors" (
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "locadors_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "locators_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "locadors_phone_key" ON "locadors"("phone");
+CREATE UNIQUE INDEX "locators_phone_key" ON "locators"("phone");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "locadors_email_key" ON "locadors"("email");
+CREATE UNIQUE INDEX "locators_email_key" ON "locators"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "locadors_cpf_key" ON "locadors"("cpf");
+CREATE UNIQUE INDEX "locators_cpf_key" ON "locators"("cpf");
 
 -- AddForeignKey
-ALTER TABLE "locadors" ADD CONSTRAINT "locadors_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "locators" ADD CONSTRAINT "locators_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
