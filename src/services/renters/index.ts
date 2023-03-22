@@ -5,23 +5,40 @@ class IndexRenters extends BaseService {
     super()
   }
 
-  async call (user){
+  async call (user, search){
     const renters = this.prisma.user.findUnique({
       where: { id: user.id },
       select: {
         renters: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            phone: true,
-            cpf: true
+          ...this.search(search),
+          ...{
+              select: {
+              id: true,
+              name: true,
+              email: true,
+              phone: true,
+              cpf: true
+            }
           }
         }
       }
     });
+    
+    return renters;
+  }
 
-    return renters
+  private search(search){
+    if(!search) { return };
+
+    return {
+      where: {
+        OR: [
+          { name: { contains: search }},
+          { email: { contains: search }},
+          { cpf: { contains: search }},
+        ]
+      }
+    };
   }
 }
 

@@ -32,7 +32,7 @@ class RentersController {
   }
 
   async index(req: Request, res: Response){
-    const renters = await index_renters.call(req.user);
+    const renters = await index_renters.call(req.user, req.query.search);
 
     return res.status(200).json(renters)
   }
