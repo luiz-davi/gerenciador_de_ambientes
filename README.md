@@ -11,3 +11,8 @@ A API fornece um serviço para gerenciamento de ambientes de lazer. É possível
 + Após instalação das ferramentas, colocar o projeto e rodar os seguintes comandos:
 > `yarn install`
 > `yarn prisma migrate dev`
+## Arquivos na API
++ Prisma
+> É necessáro criar um arquivo `.env` na raiz do projeto, esse sendo uma cópia do outro arquivo `.env.example`, e seguir as orientações nele descritas.
++ Firebase
+> Já com o seu projeto criado no firebase, vá na `engrenagem(configurações)->Configurações do projeto->Contas de serviço->Gerar uma nova chave privada`. Será feito um download de um json, e esse será colocado na pasta `./src/config/firebase.json`.
