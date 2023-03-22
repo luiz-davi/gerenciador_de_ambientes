@@ -1,5 +1,5 @@
 import { Router } from "express";
-import RentersController from "@controllers/renter.controller";
+import RentersController from "@controllers/renters.controller";
 import {authMiddleware} from "@shared/middlewares/auth.middleware";
 
 const routes = Router();

@@ -6,7 +6,8 @@
   "author": "luiz-davi <luizd4398@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_module --no-notify src/server.ts"
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_module --no-notify src/server.ts",
+    "compile": "tsc"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
