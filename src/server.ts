@@ -12,7 +12,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/api/docs', swagger_ui.serve, swagger_ui.setup(swagger_config));
+app.use('/documentation', swagger_ui.serve, swagger_ui.setup(swagger_config));
 
 app.use(routers.user_routes);
 app.use(routers.renter_routes);

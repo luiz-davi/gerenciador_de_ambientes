@@ -18,6 +18,7 @@
   "paths": {
     "/renters": {
       "get": {
+        "description": "Essa rota retorna os locatários do usuário logado.",
         "tags": ["Renters"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [
@@ -37,6 +38,7 @@
         }
       },
       "post": {
+        "description": "Rota para criar locatários(clientes).",
         "tags": ["Renters"],
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
@@ -71,6 +73,122 @@
           },
           "400": {
             "description": "ValidationError"
+          }
+        }
+      }
+    },
+    "/renters/{id}": {
+      "get": {
+        "sumary": "Busca locatário pelo id.",
+        "tags": ["Renters"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable entety."
+          },
+          "404": {
+            "description": "Token inválido."
+          }
+        }
+      },
+      "patch": {
+        "sumary": "Atualiza as informações de um locatário.",
+        "tags": ["Renters"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "cpf": {
+                    "type": "string"
+                  },
+                  "current_password": {
+                    "type": "string",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable entety."
+          },
+          "400": {
+            "description": "ValidationError"
+          },
+          "401": {
+            "description": "Confirmação de senha atual falhou."
+          }
+        }
+      },
+      "delete": {
+        "sumary": "Atualiza as informações de um locatário.",
+        "tags": ["Renters"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "current_password": {
+                    "type": "string",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "true"
+          },
+          "401": {
+            "description": "Confirmação de senha atual falhou."
           }
         }
       }
