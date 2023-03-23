@@ -1,0 +1,79 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+      "title": "Gerenciamento de ambientes",
+      "description": "Gerenciar ambientes de lazer.",
+      "version": "1.0.0"
+    },
+  "base_path": "/",
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "paths": {
+    "/renters": {
+      "get": {
+        "tags": ["Renters"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "search",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Token inválido."
+          },
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Renters"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "cpf": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Locatário criado."
+          },
+          "404": {
+            "description": "Token inválido."
+          },
+          "400": {
+            "description": "ValidationError"
+          }
+        }
+      }
+    }
+  }
+}
