@@ -16,6 +16,207 @@
     }
   },
   "paths": {
+    "/users/login": {
+      "post": {
+        "description": "Rota usada para gerar o token de autenticação.",
+        "tags": ["Users"],
+        "requestBody":{
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "password": {
+                    "type": "string",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok."
+          },
+          "400": {
+            "description": "Email ou senha inválidos."
+          },
+          "422": {
+            "description": "Unprocessable entety."
+          }
+        }
+      }
+    },
+    "/users/show": {
+      "get": {
+        "description": "Rotorna as informações do usuário logado",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Token inválido"
+          }
+        }
+      }
+    },
+    "/users": {
+      "delete": {
+        "description": "Delete o usuário logado.",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "confirm_password": {
+                    "type": "string",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "400": {
+            "description": "Senha ou confirmação de senha incorretas."
+          }
+        }
+      },
+      "post": {
+        "description": "Criar um novo usuário.",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "surname": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "email": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "phone": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "file": {
+                    "type": "string",
+                    "required": true,
+                    "format": "binary"
+                  },
+                  "password": {
+                    "type": "string",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Ok"
+          },
+          "400": {
+            "descr,iption": "ValidationError"
+          },
+          "500": {
+            "description": "Data base error"
+          }
+        }
+      },
+      "patch": {
+        "description": "Atualizar o usuário logado",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "surname": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "current_password": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "confirm_password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Ok"
+          },
+          "400": {
+            "descr,iption": "ValidationError"
+          },
+          "500": {
+            "description": "Data base error"
+          },
+          "401": {
+            "description": "Confirmação de senha atual falhou."
+          }
+        }
+      }
+    },
     "/renters": {
       "get": {
         "description": "Essa rota retorna os locatários do usuário logado.",
@@ -60,6 +261,12 @@
                     "type": "string"
                   }
                 }
+              },
+              "example": {
+                "name": "Swagger renters",
+                "email": "swagger@gmail.com",
+                "phone": "9913586286",
+                "cpf": "12345678978"
               }
             }
           }
@@ -157,7 +364,7 @@
         }
       },
       "delete": {
-        "sumary": "Atualiza as informações de um locatário.",
+        "sumary": "Deleta um locatário especificado.",
         "tags": ["Renters"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [
