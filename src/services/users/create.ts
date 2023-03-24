@@ -22,6 +22,7 @@ class UserCreate extends BaseService{
           id: true,
           first_name: true,
           last_name: true,
+          surname: true,
           email: true,
           phone: true,
           avatar_url: true,

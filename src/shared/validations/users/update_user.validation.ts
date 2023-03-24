@@ -3,6 +3,7 @@ import * as yup from 'yup';
 export const update_user_validation = yup.object({
   first_name: yup.string(),
   last_name: yup.string(),
+  surname: yup.string(),
   email: yup.string().email(),
   phone: yup.string().min(14).max(14),
   avatar_url: yup.string().url(),
