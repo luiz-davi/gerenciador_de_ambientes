@@ -8,7 +8,7 @@ A API fornece um serviço para gerenciamento de ambientes de lazer. É possível
 >  Acessar a página do [Yarn](https://classic.yarnpkg.com/en/docs/install#windows-stable). Ao abrir a página, clicar no toggle `Click to expand / collapse`, escolher o windows como plataforma e clicar no botão de download. Após isso, executar o instalador e seguir as orientações padrão do instalador.
 + PostgreSQL
 > Acessar a página do [PostgreSQL](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) e depois clique na opção de instalador do postgres 14 ou 15. Após o download, executar o instalador e seguir as orientações padrão.
-+ Após instalação das ferramentas, colocar o projeto e rodar os seguintes comandos:
++ Após instalação das ferramentas, clonar o projeto e rodar os seguintes comandos:
 > `yarn install`
 > `yarn prisma migrate dev`
 ## Arquivos na API
@@ -16,3 +16,6 @@ A API fornece um serviço para gerenciamento de ambientes de lazer. É possível
 > É necessáro criar um arquivo `.env` na raiz do projeto, esse sendo uma cópia do outro arquivo `.env.example`, e seguir as orientações nele descritas.
 + Firebase
 > Já com o seu projeto criado no firebase, vá na `engrenagem(configurações)->Configurações do projeto->Contas de serviço->Gerar uma nova chave privada`. Será feito um download de um json, e esse será colocado na pasta `./src/config/firebase.json`.
+
+# Swagger
+Para colocar o servidor de pé, rodar o comando `yarn dev` no terminal. Após o servidor ligados, acessar a rota `localhost:3333/documentation`
