@@ -12,7 +12,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
   const prisma = new PrismaClient();
   const { authorization } = req.headers;  
 
-  if(!authorization) { return res.status(404).json({ error: { message: 'Token inválido.' } }) }
+  if(!authorization) { return res.status(401).json({ error: { message: 'Token inválido.' } }) }
 
   const token = authorization.split(' ')[1];
 
@@ -23,13 +23,13 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
       where: { id }
     });
 
-    if(!user){ return res.status(404).json({ error: { message: 'Token inválido.' } }) }  
+    if(!user){ return res.status(401).json({ error: { message: 'Token inválido.' } }) }  
 
     req.user = user;
 
     next();
   } catch (error) {
-    return res.status(404).json({ error: { message: error.message } })
+    return res.status(401).json({ error: { message: error.message } })
   }
   
 }

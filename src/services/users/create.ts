@@ -9,11 +9,12 @@ class UserCreate extends BaseService{
 
   async call(data, file){
     try {
-      const avatar_url = await upload(file);
+      if(file){
+        data.avatar_url = await upload(file);
+      }
       
       delete data.confirm_password;
       data.password = await bcrypt.hash(data.password, 10);
-      data.avatar_url = avatar_url;
       
       const users = await this.prisma.user.create({
         data,
