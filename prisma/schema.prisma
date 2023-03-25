@@ -35,7 +35,7 @@ model Renter {
   email      String
   cpf        String
   user_id    Int
-  locator    User     @relation(fields: [user_id], references: [id])
+  locator    User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -49,7 +49,7 @@ model Environment {
   description String
   pictures    String[]
   locator_id  Int
-  locator     User     @relation(fields: [locator_id], references: [id])
+  locator     User     @relation(fields: [locator_id], references: [id], onDelete: Cascade)
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
   itens       Item[]
@@ -61,7 +61,9 @@ model Item {
   id             Int         @id @default(autoincrement())
   name           String
   environment_id Int
-  environment    Environment @relation(fields: [environment_id], references: [id])
+  amount         Int
+  picture        String?
+  environment    Environment @relation(fields: [environment_id], references: [id], onDelete: Cascade)
   created_at     DateTime    @default(now())
   updated_at     DateTime    @updatedAt
 
