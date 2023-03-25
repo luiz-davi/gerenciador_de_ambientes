@@ -14,8 +14,9 @@ app.use(cors());
 app.use(express.json());
 app.use('/documentation', swagger_ui.serve, swagger_ui.setup(swagger_config));
 
-app.use(routers.user_routes);
-app.use(routers.renter_routes);
+app.use(routers.users);
+app.use(routers.renters);
+app.use(routers.environments);
 
 app.listen(3333, () => {
 	console.log('Servidor rodando na porta 3333 🚀');
