@@ -32,8 +32,10 @@ class UserCreate extends BaseService{
         }
       });
   
+      await this.prisma.$disconnect();
       return users;
     } catch (error) {
+      await this.prisma.$disconnect();
       throw {
         name: 'Data base error',
         error 

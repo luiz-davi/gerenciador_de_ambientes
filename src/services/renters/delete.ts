@@ -18,6 +18,7 @@ class DeleteRenter extends BaseService {
     });
 
     if(!renter){
+      await this.prisma.$disconnect();
       throw new NotFoundError('Locatário não encontrado.')
     }
     
@@ -26,6 +27,7 @@ class DeleteRenter extends BaseService {
       where: { id: renter?.id }
     });
 
+    await this.prisma.$disconnect();
     return true;
   }
 }

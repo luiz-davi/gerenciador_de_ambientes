@@ -24,6 +24,7 @@ class IndexRenters extends BaseService {
       }
     });
     
+    await this.prisma.$disconnect();
     return renters;
   }
 

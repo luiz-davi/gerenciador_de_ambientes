@@ -13,6 +13,7 @@ class UserUpdate extends BaseService{
   async call(data, user: User, file){
 
     if(!await bcrypt.compare(data.current_password, user.password)){
+      await this.prisma.$disconnect();
       throw new UnauthrizedError('Confirmação de senha atual falhou.');
     }
 
@@ -34,8 +35,10 @@ class UserUpdate extends BaseService{
         data
       });
 
+      await this.prisma.$disconnect();
       return update_user;
     } catch (error) {
+      await this.prisma.$disconnect();
       throw {
         name: 'Data base error',
         message: error.meta.cause

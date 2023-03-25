@@ -10,7 +10,8 @@ class UserDelete extends BaseService{
 
   async call(password: string, user: User){
 
-    if(!await bcrypt.compare(password, user.password)){      
+    if(!await bcrypt.compare(password, user.password)){    
+      await this.prisma.$disconnect();  
       throw new UnauthrizedError(`Operação não autorizada`);
     }
 
@@ -19,8 +20,10 @@ class UserDelete extends BaseService{
         where: { id: user.id }
       });
   
+      await this.prisma.$disconnect();
       return result;
     } catch (error) {
+      await this.prisma.$disconnect();
       throw {
         name: 'Data base error',
         error 

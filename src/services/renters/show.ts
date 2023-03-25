@@ -25,9 +25,11 @@ class ShowUser extends BaseService{
     });
 
     if(!renter?.renters.length){
+      await this.prisma.$disconnect();
       throw new NotFoundError('Id inválido.');
     }
 
+    await this.prisma.$disconnect();
     return renter.renters[0];
   }
 }
