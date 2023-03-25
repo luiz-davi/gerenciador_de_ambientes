@@ -1,4 +1,4 @@
-import {BaseService} from '@services/base_service';
+import {BaseService} from '@services/api/base_service';
 import bcrypt from 'bcrypt';
 import { UnauthrizedError, NotFoundError } from '@shared/errors';
 import { User } from '@prisma/client';

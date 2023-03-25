@@ -1,16 +1,15 @@
 import bcrypt from 'bcrypt';
 import { UnauthrizedError } from '@shared/errors';
-import { BaseService } from "@services/base_service";
+import { BaseService } from "@services/api/base_service";
 import { NotFoundError } from "@shared/errors";
 
-class UpdateRenter extends BaseService {
+class DeleteRenter extends BaseService {
   constructor(){
     super();
   }
 
   async call(id, user, data){
-    if(!await bcrypt.compare(data.current_password, user.password)){
-      await this.prisma.$disconnect();
+    if(!await bcrypt.compare(data.current_password, user.password)){      
       throw new UnauthrizedError('Confirmação de senha atual falhou.');
     }
 
@@ -24,14 +23,13 @@ class UpdateRenter extends BaseService {
     }
     
     delete data.current_password;
-    const updated_renter = await this.prisma.renter.update({
-      where: { id: renter?.id },
-      data
+    await this.prisma.renter.delete({
+      where: { id: renter?.id }
     });
 
     await this.prisma.$disconnect();
-    return updated_renter;
+    return true;
   }
 }
 
-export default new UpdateRenter();
+export default new DeleteRenter();

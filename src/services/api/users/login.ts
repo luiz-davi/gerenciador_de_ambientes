@@ -1,4 +1,4 @@
-import { BaseService } from "@services/base_service";
+import { BaseService } from "@services/api/base_service";
 import { BadRequestError, NotFoundError } from "@shared/errors";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';

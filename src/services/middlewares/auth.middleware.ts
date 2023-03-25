@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { BaseService } from "@services/base_service";
+import { BaseService } from "@services/api/base_service";
 import { PrismaClient } from "@prisma/client";
 
 type JwtPayLoad = {

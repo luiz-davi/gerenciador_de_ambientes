@@ -1,4 +1,4 @@
-import { BaseService } from '@services/base_service';
+import { BaseService } from '@services/api/base_service';
 
 class IndexRenters extends BaseService {
   constructor(){

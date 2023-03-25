@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { BaseService } from "@services/base_service";
+import { BaseService } from "@services/api/base_service";
 import { User } from '@prisma/client';
 import { UnauthrizedError } from '@shared/errors';
 import upload from '@shared/firebase';
