@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import { BaseService } from "@services/api/base_service";
 import { User } from '@prisma/client';
 import { UnauthrizedError } from '@shared/errors';
-import upload from '@shared/firebase';
+import upload from '@services/uploads/user';
 
 class UserUpdate extends BaseService{
 
@@ -26,7 +26,7 @@ class UserUpdate extends BaseService{
       }
 
       if (file){ 
-        const avatar_url = await upload(file);
+        const avatar_url = await upload.call(file, user);
         data.avatar_url = avatar_url;
       }
 

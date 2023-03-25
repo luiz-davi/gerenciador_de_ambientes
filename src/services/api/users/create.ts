@@ -1,6 +1,6 @@
 import {BaseService} from '@services/api/base_service';
 import bcrypt from 'bcrypt';
-import upload from '@shared/firebase';
+import upload from '@services/uploads/user';
 
 class UserCreate extends BaseService{
   constructor(){
@@ -10,7 +10,8 @@ class UserCreate extends BaseService{
   async call(data, file){
     try {
       if(file){
-        data.avatar_url = await upload(file);
+        const user = { first_name: data.first_name, last_name: data.last_name }
+        data.avatar_url = await upload.call(file, user);
       }
       
       delete data.confirm_password;
@@ -34,6 +35,7 @@ class UserCreate extends BaseService{
   
       await this.prisma.$disconnect();
       return users;
+
     } catch (error) {
       await this.prisma.$disconnect();
       throw {
