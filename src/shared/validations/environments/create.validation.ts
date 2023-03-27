@@ -9,5 +9,5 @@ export default yup.object({
   name: yup.string().required(),
   price: yup.number().required(),
   description: yup.string().required(),
-  itens: yup.array().min(1).of(items_validate).required()
+  itens: yup.array().of(items_validate)
 });

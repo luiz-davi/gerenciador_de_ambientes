@@ -16,6 +16,73 @@
     }
   },
   "paths": {
+    "/environments": {
+      "post": {
+        "description": "Rota para criação de ambiente.",
+        "tags": ["Environments"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "price": {
+                    "type": "float",
+                    "required": true
+                  },
+                  "description": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  },
+                  "itens": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "required": true
+                        },
+                        "amount": {
+                          "type": "integer",
+                          "required": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Ambiente criado com sucesso!"
+          },
+          "401": {
+            "description": "Token inválido"
+          },
+          "400": {
+            "description": "ValidationError"
+          },
+          "500": {
+            "description": "Data base error"
+          }
+        }
+      }
+    },
     "/users/login": {
       "post": {
         "description": "Rota usada para gerar o token de autenticação.",
