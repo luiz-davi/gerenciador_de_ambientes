@@ -9,5 +9,9 @@ export default yup.object({
   name: yup.string().required(),
   price: yup.number().required(),
   description: yup.string().required(),
+  pool: yup.boolean().nullable(),
+  grill: yup.boolean().nullable(),
+  playground: yup.boolean().nullable(),
+  kitchen: yup.boolean().nullable(),
   itens: yup.array().of(items_validate)
 });

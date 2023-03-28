@@ -46,6 +46,18 @@
                       "format": "binary"
                     }
                   },
+                  "pool": {
+                    "type": "boolean"
+                  },
+                  "grill": {
+                    "type": "boolean"
+                  },
+                  "kitchen": {
+                    "type": "boolean"
+                  },
+                  "playground": {
+                    "type": "boolean"
+                  },
                   "itens": {
                     "type": "array",
                     "items": {
@@ -83,7 +95,8 @@
         }
       },
       "get": {
-        "description": "Retorna os ambientes cadastrados pelo usuário.",
+        "description": "Rota pata os ambientes cadastrados pelo usuário.",
+        "summary": "retorna os ambientes do usuário logado.",
         "tags": ["Environments"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [

@@ -24,6 +24,10 @@ class CreateEnvironment extends BaseService{
           description: data.description,
           locator_id: user.id,
           pictures,
+          pool: data.pool,
+          grill: data.grill,
+          kitchen: data.kitchen,
+          playground: data.playground,
           itens: {
             create: data.itens
           }
@@ -34,6 +38,10 @@ class CreateEnvironment extends BaseService{
           price: true,
           description: true,
           pictures: true,
+          pool: true,
+          grill: true,
+          kitchen: true,
+          playground: true,
           created_at: true,
           itens: {
             select: {
