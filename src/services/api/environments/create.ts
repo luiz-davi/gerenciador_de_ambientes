@@ -33,6 +33,7 @@ class CreateEnvironment extends BaseService{
           name: true,
           price: true,
           description: true,
+          pictures: true,
           created_at: true,
           itens: {
             select: {

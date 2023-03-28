@@ -7,6 +7,6 @@ const upload = storage;
 const routes = Router();
 
 routes.post("/environments", upload.array("files"), auth.call ,EnvironmentsController.create );
-//routes.get("/environments", authMiddleware, EnvironmentsController.index );
+routes.get("/environments", auth.call, EnvironmentsController.index );
 
 export default routes;
