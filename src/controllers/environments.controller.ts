@@ -48,6 +48,16 @@ class EnvironmentsController {
 			}
     }
   }
+
+  async show(req: Request, res: Response){
+    try{
+      const env = await services.show.call(req.user, req.params.id);
+
+      return res.status(200).json(env);
+    }catch(error){
+      return res.status(error.status_code).json({ error: { message: error.message }})
+    }
+  }
 }
 
 export default new EnvironmentsController();
