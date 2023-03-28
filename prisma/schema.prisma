@@ -50,6 +50,10 @@ model Environment {
   pictures    String[]
   locator_id  Int
   locator     User     @relation(fields: [locator_id], references: [id], onDelete: Cascade)
+  pool        Boolean  @default(false)
+  grill       Boolean  @default(false)
+  playground  Boolean  @default(false)
+  kitchen     Boolean  @default(false)
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
   itens       Item[]

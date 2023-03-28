@@ -1,18 +1,35 @@
+import { query } from "express";
 import { BaseService } from "../base_service";
-const ORDER_VALUES = ['price', 'created_at']
 
 class ListingEnvironments extends BaseService{
+  constructor(){
+    super()
+    this.order_values = ['price', 'created_at'];
+  }
   async call(user, queries){
     try{
       const pagination = await this.pagination(queries.page, queries.page_size);
       const search = await this.search(queries.search);
-      const ordering = await this.ordering(Object.entries(queries.ordering));
+      const order = queries.ordering || [];
+      const ordering = await this.ordering(Object.entries(order));
+      const pool = await this.filters('pool', queries.pool);
+      const grill = await this.filters('grill', queries.grill);
+      const playground = await this.filters('playground', queries.playground);
+      const kitchen = await this.filters('kitchen', queries.kitchen);
       
       const envs = await this.prisma.user.findUnique({
         where: { id: user.id },
         select: {
           environments: {
-            ...search,
+            ...{ 
+              where: {
+                ...pool,
+                ...grill,
+                ...playground,
+                ...kitchen,
+                ...search,
+              }
+            },
             ...ordering,
             ...pagination,
             ...{
@@ -22,11 +39,13 @@ class ListingEnvironments extends BaseService{
                 description: true,
                 price: true,
                 pictures: true,
+                created_at: true,
                 itens: {
                   select: {
                     id: true,
                     name: true,
-                    amount: true
+                    amount: true,
+                    created_at: true
                   }
                 }
               }
@@ -41,47 +60,6 @@ class ListingEnvironments extends BaseService{
 
   }
 
-  private async pagination(page= 0, page_size = 30){
-    page = Number(page);
-    page_size = Number(page_size);
-
-    const offset = (page <= 1 ? 0 : ((page - 1) * page_size));
-    
-    return {
-      skip: offset,
-      take: page_size
-    };
-  }
-
-  private async search(search){
-
-    if(!search || search.length === 0) { return {} };
-
-    return {
-      where: {
-        OR: [
-          { name: { contains: search } }
-        ]
-      }
-    };
-  }
-
-  private async ordering(ordering){
-    if(!ordering || ordering.length === 0) { return {} };
-
-    const orderBy: any[] = [];
-    
-    let order
-    ordering.forEach( value => {
-      order = {};
-      if(ORDER_VALUES.includes(value[1])) { 
-        order[`${value[1]}`] = 'desc';
-        orderBy.push(order);
-      }
-    });
-
-    return { orderBy };
-  }
 }
 
 export default new ListingEnvironments();
