@@ -9,7 +9,4 @@ if (!global.bucket) {
   }).storage().bucket();
 }
 
-let bucket = global.bucket;
-
-
-export default bucket;
+export default global.bucket;
