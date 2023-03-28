@@ -81,6 +81,32 @@
             "description": "Data base error"
           }
         }
+      },
+      "get": {
+        "description": "Retorna os ambientes cadastrados pelo usuário.",
+        "tags": ["Environments"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "in": "query", "name": "search", "schema": { "type": "string" } },
+          { "in": "query", "name": "page", "schema": {"type": "integer"} },
+          { "in": "query", "name": "page_size", "schema": {"type": "integer"} },
+          { "in": "query", "name": "ordering", "schema": { "type": "array"} },
+          { "in": "query", "name": "pool", "schema": {"type": "boolean"} },
+          { "in": "query", "name": "grill", "schema": {"type": "boolean"} },
+          { "in": "query", "name": "playground", "schema": {"type": "boolean"} },
+          { "in": "query", "name": "kitchen","schema": { "type": "boolean" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ambientes cadastrados."
+          },
+          "400": {
+            "description": "ValidationError"
+          },
+          "401": {
+            "description": "Token inválido"
+          }
+        }
       }
     },
     "/users/login": {

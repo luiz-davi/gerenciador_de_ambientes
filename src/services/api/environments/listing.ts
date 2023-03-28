@@ -6,6 +6,7 @@ class ListingEnvironments extends BaseService{
     super()
     this.order_values = ['price', 'created_at'];
   }
+  
   async call(user, queries){
     try{
       const pagination = await this.pagination(queries.page, queries.page_size);
@@ -55,7 +56,7 @@ class ListingEnvironments extends BaseService{
       });
       return envs;
     } catch(erro){
-      console.log(erro)
+      console.log(erro);
     }
 
   }
