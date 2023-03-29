@@ -18,7 +18,7 @@
   "paths": {
     "/environments": {
       "post": {
-        "description": "Rota para criação de ambiente.",
+        "summary": "Cria um ambiente e itens.",
         "tags": ["Environments"],
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
@@ -144,6 +144,50 @@
           },
           "401": {
             "description": "Token inválido"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deleta um ambiente",
+        "tags": ["Environments"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "current_password": {
+                      "type": "string",
+                      "required": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "400": {
+            "description": "ValidationError"
+          },
+          "401": {
+            "description": "Confirmação de senha falhou."
+          },
+          "404": {
+            "description": "Ambiente não encontrado"
           }
         }
       }
