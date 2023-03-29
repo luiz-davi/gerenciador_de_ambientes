@@ -39,6 +39,17 @@ class ItensController {
     }
   }
 
+  async show(req: Request, res: Response){
+    try {
+      const item = await services.show.call(req.user, Number(req.params.env_id), Number(req.params.id));
+
+      return res.status(200).json(item);
+      
+    } catch (error) {
+      return res.status(error.status_code).json({ error: { message: error.message } });
+    }
+  }
+
 }
 
 export default new ItensController();

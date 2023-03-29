@@ -105,6 +105,135 @@
             "description": "Data base error"
           }
         }
+      },
+      "get": {
+        "summary": "Retorna os itens de um ambiente.",
+        "tags": ["Itens"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "required": true,
+            "name": "id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "integer"
+                      },
+                      "picture": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "environment": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "404": {
+            "description": "No Environment found"
+          }
+        }
+      }
+    },
+    "/environments/{env_id}/itens/{id}": {
+      "get": {
+        "summary": "Retorna um item do ambiente",
+        "tags": ["Itens"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "required": true,
+            "name": "env_id"
+          },
+          {
+            "in": "path",
+            "type": "integer",
+            "required": true,
+            "name": "id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "amount": {
+                      "type": "integer"
+                    },
+                    "picture": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "environment": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "404": {
+            "description": "No Environment found"
+          }
+        }
       }
     },
     "/environments": {
