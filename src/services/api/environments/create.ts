@@ -1,5 +1,6 @@
 import { BaseService } from "@services/api/base_service";
 import upload from '@services/uploads/environments';
+import { BadRequestError } from "@shared/errors";
 
 class CreateEnvironment extends BaseService{
 
@@ -24,7 +25,7 @@ class CreateEnvironment extends BaseService{
           description: data.description,
           locator_id: user.id,
           pictures,
-          public: data.public,
+          public: await this.check_public(data.public),
           pool: data.pool,
           grill: data.grill,
           kitchen: data.kitchen,
@@ -65,6 +66,16 @@ class CreateEnvironment extends BaseService{
         name: 'Data base error',
         error 
       };
+    }
+    
+  }
+
+  private check_public(value){
+    switch (value){
+      case 'true':
+        return true
+      case 'false':
+        return false
     }
   }
 }

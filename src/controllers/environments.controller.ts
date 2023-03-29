@@ -14,9 +14,8 @@ class EnvironmentsController {
       });
 
     } catch (error) {
-      const errors = { name: error.name, message: error.message, errors: {} };
-				
-			if(error.inner){
+      if(error.inner){
+        const errors = { name: error.name, message: error.message, errors: {} };
 				error.inner.forEach(element => {
 					errors.errors[element.path] = element.errors
 				});
@@ -36,15 +35,16 @@ class EnvironmentsController {
       const envs = await services.listing.call(req.user, req.query);
       return res.status(200).json(envs?.environments);
     } catch (error) {
-      const errors = { name: error.name, message: error.message, errors: {} };
-				
-			if(error.inner){
+      if(error.inner){
+        const errors = { name: error.name, message: error.message, errors: {} };
 				error.inner.forEach(element => {
 					errors.errors[element.path] = element.errors
 				});
 	
 				return res.status(400).json(errors);
 			}
+      
+      return res.status(error.status_code).json({ error: { message: error.message } })
     }
   }
 
