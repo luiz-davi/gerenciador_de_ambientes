@@ -122,6 +122,32 @@
         }
       }
     },
+    "/environments/{id}": {
+      "get": {
+        "summary": "Retorna as informações de um ambiente.",
+        "tags": ["Environments"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Ambiente não encontrado"
+          },
+          "401": {
+            "description": "Token inválido"
+          }
+        }
+      }
+    },
     "/users/login": {
       "post": {
         "description": "Rota usada para gerar o token de autenticação.",

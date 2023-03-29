@@ -58,6 +58,7 @@ class EnvironmentsController {
       return res.status(error.status_code).json({ error: { message: error.message }})
     }
   }
+  
 }
 
 export default new EnvironmentsController();
