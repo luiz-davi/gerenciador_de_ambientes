@@ -9,7 +9,7 @@ class DeleteRenter extends BaseService {
   }
 
   async call(id, user, data){
-    if(!await bcrypt.compare(data.current_password, user.password)){      
+    if(!await bcrypt.compare(data.current_password, user.password)){
       throw new UnauthrizedError('Confirmação de senha atual falhou.');
     }
 
