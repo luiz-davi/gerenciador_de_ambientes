@@ -39,6 +39,10 @@
                     "type": "string",
                     "required": true
                   },
+                  "public": {
+                    "type": "boolean",
+                    "required": true
+                  },
                   "files": {
                     "type": "array",
                     "items": {
@@ -96,7 +100,7 @@
       },
       "get": {
         "description": "Rota pata os ambientes cadastrados pelo usuário.",
-        "summary": "retorna os ambientes do usuário logado.",
+        "summary": "Retorna os ambientes do usuário logado.",
         "tags": ["Environments"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [

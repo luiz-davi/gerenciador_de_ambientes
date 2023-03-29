@@ -54,6 +54,7 @@ model Environment {
   grill       Boolean  @default(false)
   playground  Boolean  @default(false)
   kitchen     Boolean  @default(false)
+  public      Boolean  @default(false)
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
   itens       Item[]
