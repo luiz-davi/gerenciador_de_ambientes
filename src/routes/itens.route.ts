@@ -7,8 +7,6 @@ import ItensController from '@controllers/itens.controller';
 const routes = Router();
 
 routes.post("/environments/:id/itens", auth.call, ItensController.create);
-//routes.get("/environments", auth.call, EnvironmentsController.index );
-//routes.get("/environments/:id", auth.call, EnvironmentsController.show );
-//routes.delete("/environments/:id", auth.call, EnvironmentsController.delete );
+routes.get("/environments/:id/itens", auth.call, ItensController.listing);
 
 export default routes;

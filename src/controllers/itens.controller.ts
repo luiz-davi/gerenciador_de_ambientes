@@ -28,6 +28,17 @@ class ItensController {
     }
   }
 
+  async listing(req: Request, res: Response){
+    try {
+      const itens = await services.listing.call(req.user, Number(req.params.id));
+
+      return res.status(200).json(itens);
+      
+    } catch (error) {
+      return res.status(error.status_code).json({ error: { message: error.message } });
+    }
+  }
+
 }
 
 export default new ItensController();
