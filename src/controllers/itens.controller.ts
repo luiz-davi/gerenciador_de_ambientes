@@ -10,7 +10,10 @@ class ItensController {
 
       const item = await services.create.call(req.user, Number(req.params.id), req.body);
 
-      return res.status(200).json(item);
+      return res.status(201).json({
+        message: "Item criado com sucesso.",
+        item
+      });
     } catch (error) {
       if(error.inner){
         const errors = { name: error.name, message: error.message, errors: {} };

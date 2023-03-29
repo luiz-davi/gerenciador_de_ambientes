@@ -16,6 +16,97 @@
     }
   },
   "paths": {
+    "/environments/{id}/itens": {
+      "post": {
+        "summary": "Cria um ambiente e itens.",
+        "tags": ["Itens"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "required": true,
+            "name": "id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "amount": {
+                    "type": "integer",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Item criado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "item": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "amount": {
+                          "type": "integer"
+                        },
+                        "created_at": {
+                          "type": "strings"
+                        },
+                        "environment": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "400": {
+            "description": "ValidationError"
+          },
+          "404": {
+            "description": "No Environment found"
+          },
+          "500": {
+            "description": "Data base error"
+          }
+        }
+      }
+    },
     "/environments": {
       "post": {
         "summary": "Cria um ambiente e itens.",
@@ -331,7 +422,7 @@
             "description": "Ok"
           },
           "400": {
-            "descr,iption": "ValidationError"
+            "description": "ValidationError"
           },
           "500": {
             "description": "Data base error"
@@ -386,7 +477,7 @@
             "description": "Ok"
           },
           "400": {
-            "descr,iption": "ValidationError"
+            "description": "ValidationError"
           },
           "500": {
             "description": "Data base error"
