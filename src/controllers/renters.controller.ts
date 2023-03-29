@@ -1,9 +1,9 @@
 import { Request, Response } from "express-serve-static-core";
-import create_renter from '@services/renters/create'
-import index_renters from '@services/renters/index';
-import show_renters from '@services/renters/show';
-import update_renter from '@services/renters/update';
-import delete_renter from '@services/renters/delete';
+import create_renter from '@services/api/renters/create'
+import index_renters from '@services/api/renters/index';
+import show_renters from '@services/api/renters/show';
+import update_renter from '@services/api/renters/update';
+import delete_renter from '@services/api/renters/delete';
 import validations from '@shared/validations/renters'
 import { stat } from "fs";
 

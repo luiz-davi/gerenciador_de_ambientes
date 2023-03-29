@@ -1,7 +1,11 @@
-import user_routes from './user.route'
-import renter_routes from './renter.route'
+import users from './user.route'
+import renters from './renter.route'
+import environments from './environments.route'
+import itens from './itens.route'
 
 export default {
-  user_routes,
-  renter_routes
+  users,
+  renters,
+  environments,
+  itens
 };

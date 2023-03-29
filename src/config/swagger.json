@@ -16,6 +16,277 @@
     }
   },
   "paths": {
+    "/environments/{id}/itens": {
+      "post": {
+        "summary": "Cria um ambiente e itens.",
+        "tags": ["Itens"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "required": true,
+            "name": "id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "amount": {
+                    "type": "integer",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Item criado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "item": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "amount": {
+                          "type": "integer"
+                        },
+                        "created_at": {
+                          "type": "strings"
+                        },
+                        "environment": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "400": {
+            "description": "ValidationError"
+          },
+          "404": {
+            "description": "No Environment found"
+          },
+          "500": {
+            "description": "Data base error"
+          }
+        }
+      }
+    },
+    "/environments": {
+      "post": {
+        "summary": "Cria um ambiente e itens.",
+        "tags": ["Environments"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "price": {
+                    "type": "float",
+                    "required": true
+                  },
+                  "description": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "public": {
+                    "type": "boolean",
+                    "required": true
+                  },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  },
+                  "pool": {
+                    "type": "boolean"
+                  },
+                  "grill": {
+                    "type": "boolean"
+                  },
+                  "kitchen": {
+                    "type": "boolean"
+                  },
+                  "playground": {
+                    "type": "boolean"
+                  },
+                  "itens": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "required": true
+                        },
+                        "amount": {
+                          "type": "integer",
+                          "required": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Ambiente criado com sucesso!"
+          },
+          "401": {
+            "description": "Token inválido"
+          },
+          "400": {
+            "description": "ValidationError"
+          },
+          "500": {
+            "description": "Data base error"
+          }
+        }
+      },
+      "get": {
+        "description": "Rota pata os ambientes cadastrados pelo usuário.",
+        "summary": "Retorna os ambientes do usuário logado.",
+        "tags": ["Environments"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "in": "query", "name": "search", "schema": { "type": "string" } },
+          { "in": "query", "name": "page", "schema": {"type": "integer"} },
+          { "in": "query", "name": "page_size", "schema": {"type": "integer"} },
+          { "in": "query", "name": "ordering", "schema": { "type": "array"} },
+          { "in": "query", "name": "pool", "schema": {"type": "boolean"} },
+          { "in": "query", "name": "grill", "schema": {"type": "boolean"} },
+          { "in": "query", "name": "playground", "schema": {"type": "boolean"} },
+          { "in": "query", "name": "kitchen","schema": { "type": "boolean" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ambientes cadastrados."
+          },
+          "400": {
+            "description": "ValidationError"
+          },
+          "401": {
+            "description": "Token inválido"
+          }
+        }
+      }
+    },
+    "/environments/{id}": {
+      "get": {
+        "summary": "Retorna as informações de um ambiente.",
+        "tags": ["Environments"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Ambiente não encontrado"
+          },
+          "401": {
+            "description": "Token inválido"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deleta um ambiente",
+        "tags": ["Environments"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "current_password": {
+                      "type": "string",
+                      "required": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "400": {
+            "description": "ValidationError"
+          },
+          "401": {
+            "description": "Confirmação de senha falhou."
+          },
+          "404": {
+            "description": "Ambiente não encontrado"
+          }
+        }
+      }
+    },
     "/users/login": {
       "post": {
         "description": "Rota usada para gerar o token de autenticação.",
@@ -151,7 +422,7 @@
             "description": "Ok"
           },
           "400": {
-            "descr,iption": "ValidationError"
+            "description": "ValidationError"
           },
           "500": {
             "description": "Data base error"
@@ -206,7 +477,7 @@
             "description": "Ok"
           },
           "400": {
-            "descr,iption": "ValidationError"
+            "description": "ValidationError"
           },
           "500": {
             "description": "Data base error"

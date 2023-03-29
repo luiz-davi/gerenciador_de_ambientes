@@ -1,7 +1,7 @@
-import create_user from '@services/users/create';
-import update_user from '@services/users/update';
-import delete_user from '@services/users/delete';
-import login from '@services/users/login';
+import create_user from '@services/api/users/create';
+import update_user from '@services/api/users/update';
+import delete_user from '@services/api/users/delete';
+import login from '@services/api/users/login';
 import { create_user_validation } from '@shared/validations/users/create_user.validation';
 import { update_user_validation } from '@shared/validations/users/update_user.validation';
 import { delete_user_validation } from '@shared/validations/users/delete_user.validation';

@@ -22,7 +22,8 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  renters Renter[]
+  renters      Renter[]
+  environments Environment[]
 
   @@map("users")
 }
@@ -34,9 +35,42 @@ model Renter {
   email      String
   cpf        String
   user_id    Int
-  locator    User     @relation(fields: [user_id], references: [id])
+  locator    User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   @@map("renters")
+}
+
+model Environment {
+  id          Int      @id @default(autoincrement())
+  name        String
+  price       Float
+  description String
+  pictures    String[]
+  locator_id  Int
+  locator     User     @relation(fields: [locator_id], references: [id], onDelete: Cascade)
+  pool        Boolean  @default(false)
+  grill       Boolean  @default(false)
+  playground  Boolean  @default(false)
+  kitchen     Boolean  @default(false)
+  public      Boolean  @default(false)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  itens       Item[]
+
+  @@map("environments")
+}
+
+model Item {
+  id             Int         @id @default(autoincrement())
+  name           String
+  environment_id Int
+  amount         Int
+  picture        String?
+  environment    Environment @relation(fields: [environment_id], references: [id], onDelete: Cascade)
+  created_at     DateTime    @default(now())
+  updated_at     DateTime    @updatedAt
+
+  @@map("itens")
 }
