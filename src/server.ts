@@ -17,6 +17,7 @@ app.use('/documentation', swagger_ui.serve, swagger_ui.setup(swagger_config));
 app.use(routers.users);
 app.use(routers.renters);
 app.use(routers.environments);
+app.use(routers.itens);
 
 app.listen(3333, () => {
 	console.log('Servidor rodando na porta 3333 🚀');
