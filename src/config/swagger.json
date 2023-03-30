@@ -271,6 +271,99 @@
             "description": "No Environment found"
           }
         }
+      },
+      "patch": {
+        "summary": "Delete um item de um ambiente.",
+        "tags": ["Itens"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "required": true,
+            "name": "env_id"
+          },
+          {
+            "in": "path",
+            "type": "integer",
+            "required": true,
+            "name": "id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "amount": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Item atualizado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "item": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "amount": {
+                          "type": "integer"
+                        },
+                        "created_at": {
+                          "type": "strings"
+                        },
+                        "environment": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "400": {
+            "description": "ValidationError"
+          },
+          "404": {
+            "description": "No Environment found"
+          },
+          "500": {
+            "description": "Data base error"
+          }
+        }
       }
     },
     "/environments": {
