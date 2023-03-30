@@ -7,8 +7,9 @@ import ItensController from '@controllers/itens.controller';
 const routes = Router();
 
 routes.post("/environments/:id/itens", auth.call, ItensController.create);
-//routes.get("/environments", auth.call, EnvironmentsController.index );
-//routes.get("/environments/:id", auth.call, EnvironmentsController.show );
-//routes.delete("/environments/:id", auth.call, EnvironmentsController.delete );
+routes.get("/environments/:id/itens", auth.call, ItensController.listing);
+routes.get("/environments/:env_id/itens/:id", auth.call, ItensController.show);
+routes.delete("/environments/:env_id/itens/:id", auth.call, ItensController.delete);
+routes.patch("/environments/:env_id/itens/:id", auth.call, ItensController.update);
 
 export default routes;
