@@ -9,5 +9,6 @@ const routes = Router();
 routes.post("/environments/:id/itens", auth.call, ItensController.create);
 routes.get("/environments/:id/itens", auth.call, ItensController.listing);
 routes.get("/environments/:env_id/itens/:id", auth.call, ItensController.show);
+routes.delete("/environments/:env_id/itens/:id", auth.call, ItensController.delete);
 
 export default routes;

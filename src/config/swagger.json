@@ -234,6 +234,43 @@
             "description": "No Environment found"
           }
         }
+      },
+      "delete": {
+        "summary": "Delete um item de um ambiente.",
+        "tags": ["Itens"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "required": true,
+            "name": "env_id"
+          },
+          {
+            "in": "path",
+            "type": "integer",
+            "required": true,
+            "name": "id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "404": {
+            "description": "No Environment found"
+          }
+        }
       }
     },
     "/environments": {
