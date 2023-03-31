@@ -221,6 +221,56 @@
         }
       }
     },
+    "/public/environments/{id}/itens": {
+      "get": {
+        "summary": "Retorna os itens de um ambiente.",
+        "tags": ["Public"],
+        "parameters": [
+          { 
+            "in": "path", 
+            "name": "id", 
+            "schema": { 
+              "type": "integer"
+            } 
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Itens de um ambiente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "integer"
+                      },
+                      "picture": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "environment_id": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/environments/{id}/itens": {
       "post": {
         "summary": "Cria um ambiente e itens.",

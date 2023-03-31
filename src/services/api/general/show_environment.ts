@@ -1,7 +1,7 @@
 import { NotFoundError } from "@shared/errors";
 import { BaseService } from "../base_service";
 
-class EnvironmentsGeneralService extends BaseService{
+class ShowEnvironmentGeneralService extends BaseService{
   async call(id){
     try{
       const env = await this.prisma.environment.findFirstOrThrow({
@@ -45,4 +45,4 @@ class EnvironmentsGeneralService extends BaseService{
   }
 }
 
-export default new EnvironmentsGeneralService();
+export default new ShowEnvironmentGeneralService();
