@@ -21,10 +21,10 @@ class UserShow extends BaseService{
         }
       });
   
-      await this.prisma.$disconnect();
+      
       return user;
     } catch (error) {
-      await this.prisma.$disconnect();
+      
       throw {
         name: 'Data base error',
         message: error.meta.cause

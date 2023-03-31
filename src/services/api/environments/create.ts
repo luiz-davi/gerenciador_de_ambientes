@@ -56,12 +56,12 @@ class CreateEnvironment extends BaseService{
         }
       });
   
-      await this.prisma.$disconnect();
+      
       return environment;
 
     } catch (error) {
 
-      await this.prisma.$disconnect(); 
+       
       throw {
         name: 'Data base error',
         error 

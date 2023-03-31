@@ -10,7 +10,7 @@ class UpdateRenter extends BaseService {
 
   async call(id, user, data){
     if(!await bcrypt.compare(data.current_password, user.password)){
-      await this.prisma.$disconnect();
+      
       throw new UnauthrizedError('Confirmação de senha atual falhou.');
     }
 
@@ -19,7 +19,7 @@ class UpdateRenter extends BaseService {
     });
 
     if(!renter){
-      await this.prisma.$disconnect();
+      
       throw new NotFoundError('Locatário não encontrado.')
     }
     
@@ -29,7 +29,7 @@ class UpdateRenter extends BaseService {
       data
     });
 
-    await this.prisma.$disconnect();
+    
     return updated_renter;
   }
 }
