@@ -16,6 +16,261 @@
     }
   },
   "paths": {
+    "/public/environments": {
+      "get": {
+        "summary": "Lista ambientes que podem ser alugados por qualquer um.",
+        "tags": ["Public"],
+        "parameters": [
+          { "in": "query", "name": "search", "schema": { "type": "string" } },
+          { "in": "query", "name": "page", "schema": {"type": "integer"} },
+          { "in": "query", "name": "page_size", "schema": {"type": "integer"} },
+          { "in": "query", "name": "ordering", "schema": { "type": "array"} },
+          { "in": "query", "name": "pool", "schema": {"type": "boolean"} },
+          { "in": "query", "name": "grill", "schema": {"type": "boolean"} },
+          { "in": "query", "name": "playground", "schema": {"type": "boolean"} },
+          { "in": "query", "name": "kitchen","schema": { "type": "boolean" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ambientes públicos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "integer"
+                      },
+                      "price": {
+                        "type": "integer"
+                      },
+                      "pictures": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "locator": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "last_name": {
+                            "type": "string"
+                          },
+                          "first_name": {
+                            "type": "string"
+                          },
+                          "avatar_url": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "phone": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "itens": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "amount": {
+                              "type": "string"
+                            },
+                            "picture": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/environments/{id}": {
+      "get": {
+        "summary": "Retorna um ambiente.",
+        "tags": ["Public"],
+        "parameters": [
+          { 
+            "in": "path", 
+            "name": "id", 
+            "schema": { 
+              "type": "integer"
+            } 
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ambientes públicos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "integer"
+                    },
+                    "price": {
+                      "type": "integer"
+                    },
+                    "pictures": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "locator": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "last_name": {
+                          "type": "string"
+                        },
+                        "first_name": {
+                          "type": "string"
+                        },
+                        "avatar_url": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "phone": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "itens": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "amount": {
+                            "type": "string"
+                          },
+                          "picture": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No Environment found"
+          }
+        }
+      }
+    },
+    "/public/environments/{id}/itens": {
+      "get": {
+        "summary": "Retorna os itens de um ambiente.",
+        "tags": ["Public"],
+        "parameters": [
+          { 
+            "in": "path", 
+            "name": "id", 
+            "schema": { 
+              "type": "integer"
+            } 
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Itens de um ambiente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "integer"
+                      },
+                      "picture": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "environment_id": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/environments/{id}/itens": {
       "post": {
         "summary": "Cria um ambiente e itens.",
