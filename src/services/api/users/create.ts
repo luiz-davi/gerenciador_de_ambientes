@@ -1,6 +1,8 @@
 import {BaseService} from '@services/api/base_service';
 import bcrypt from 'bcrypt';
 import upload from '@services/uploads/user';
+import email from '@config/email_connection';
+import jwt from 'jsonwebtoken';
 
 class UserCreate extends BaseService{
   constructor(){
@@ -8,16 +10,13 @@ class UserCreate extends BaseService{
   }
 
   async call(data, file){
+    delete data.confirm_password;
+    delete data?.verified_email;
+
+    data.password = await bcrypt.hash(data.password, 10);
+
     try {
-      if(file){
-        const user = { first_name: data.first_name, last_name: data.last_name }
-        data.avatar_url = await upload.call(file, user);
-      }
-      
-      delete data.confirm_password;
-      data.password = await bcrypt.hash(data.password, 10);
-      
-      const users = await this.prisma.user.create({
+      let user = await this.prisma.user.create({
         data,
         select: {
           id: true,
@@ -26,23 +25,41 @@ class UserCreate extends BaseService{
           surname: true,
           email: true,
           phone: true,
-          avatar_url: true,
+          verified_email: true,
           password: false,
           created_at: true,
           updated_at: false
         }
-      });
-  
-      
-      return users;
+      })
 
+      if(file){
+        const avatar_url = await upload.call(file, user);
+        user = await this.prisma.user.update({
+          where: { id: user.id },
+          data: {
+            avatar_url
+          }
+        });
+      }
+
+      email.sendMail({
+        from: `Gerencial <${process.env.EMAIL}>`,
+        to: user.email,
+        subject: 'Token de autenticação com o Gerencial.',
+        text: `Olá, ${user.surname || user.first_name}, bem vindo ao Gerencial.\nEste é o seu token de verificação: ${this.token(user)}\nAtenção: token válido por apenas 1hora`
+      })
+
+      return user;
     } catch (error) {
+      console.log(error);
       
-      throw {
-        name: 'Data base error',
-        error 
-      };
+      throw error;
     }
+
+  }
+
+  private token(user){
+    return jwt.sign({id: user.id}, process.env.JWT_PASS ?? '', { expiresIn: '1h' });
   }
   
 }

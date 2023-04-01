@@ -17,7 +17,7 @@ class UsersController {
 			await create_user_validation.validate(req.body, { abortEarly: false });
 	
 			const user = await create_user.call(req.body, req.file);
-			
+						
 			return res.status(201).json({
 				message: 'Usuário criado com sucesso',
 				user
@@ -127,6 +127,10 @@ class UsersController {
 			return res.status(400).json(errors);
 
 		}
+	}
+
+	async email_token(req: Request, res: Response){
+		
 	}
 }
 

@@ -21,33 +21,6 @@ app.use(routers.environments);
 app.use(routers.itens);
 app.use(routers.general);
 
-app.get('/email', (req, res) => {
-	const transport = nodemailer.createTransport({
-		host: 'smtp.gmail.com',
-		port: 465,
-		secure: true,
-		auth: {
-			user: process.env.EMAIL,
-			pass: process.env.EMAIL_PASSWORD
-		}
-	});
-
-	transport.sendMail({
-		from: `Gerencial <${process.env.EMAIL}>`,
-		to: 'rmdark2555@gmail.com',
-		subject: 'Token de autenticação com o Gerencial',
-		text: 'Olá, este é o seu tokn: isaugdhgsuasnijsga87634asjkbf37984yuwfjk'
-	})
-	.then((result) => {
-		return res.status(200).json(result)
-	})
-	.catch((error) => {
-		return res.status(500).json(error)
-	});
-
-	;
-});
-
 app.listen(3333, () => {
 	console.log('Servidor rodando na porta 3333 🚀');
 });

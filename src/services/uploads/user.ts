@@ -7,7 +7,7 @@ class UserUpload extends BaseUpload{
     if(!file) return DEFAULT_IMAGE;
     const image_name = `${Date.now()}_${file.originalname}`;
 
-    const username = `${user.first_name}_${user.last_name}`;
+    const username = `${user.first_name}_${user.last_name}_${user.id}`;
     const firebase_file = this.bucket.file(`avatar_images/${username}/${image_name}`);
     const stream = firebase_file.createWriteStream({
       metadata: {
