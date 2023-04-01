@@ -46,20 +46,18 @@ class UserCreate extends BaseService{
         from: `Gerencial <${process.env.EMAIL}>`,
         to: user.email,
         subject: 'Token de autenticação com o Gerencial.',
-        text: `Olá, ${user.surname || user.first_name}, bem vindo ao Gerencial.\nEste é o seu token de verificação: ${this.token(user)}\nAtenção: token válido por apenas 1hora`
+        text: `Olá, ${user.surname || user.first_name}, bem vindo ao Gerencial.\nEste é o seu token de verificação: ${this.token(user.id)}\nAtenção: token válido por apenas 1hora`
       })
 
       return user;
-    } catch (error) {
-      console.log(error);
-      
+    } catch (error) {      
       throw error;
     }
 
   }
 
-  private token(user){
-    return jwt.sign({id: user.id}, process.env.JWT_PASS ?? '', { expiresIn: '1h' });
+  private token(id){
+    return jwt.sign({ id }, process.env.JWT_PASS_EMAIL ?? 'email_pass',{ expiresIn: '1h' });
   }
   
 }

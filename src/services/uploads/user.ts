@@ -5,7 +5,8 @@ const DEFAULT_IMAGE = 'https://static.vecteezy.com/ti/vetor-gratis/p1/6026787-av
 class UserUpload extends BaseUpload{
   async call(file, user){
     if(!file) return DEFAULT_IMAGE;
-    const image_name = `${Date.now()}_${file.originalname}`;
+    let image_name = file.originalname.split(' ').join('_');
+    image_name = `${Date.now()}_${image_name}`;
 
     const username = `${user.first_name}_${user.last_name}_${user.id}`;
     const firebase_file = this.bucket.file(`avatar_images/${username}/${image_name}`);

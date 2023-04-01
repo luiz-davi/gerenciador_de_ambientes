@@ -124,7 +124,24 @@ class UsersController {
 	}
 
 	async check_token(req: Request, res: Response){
-		
+		try {
+			await validations.check_token.validate(req.body, { abortEarly: false });
+
+			const result = await services.check_token.call(req.user, req.body.token);
+
+			return res.status(200).json({ result });
+		} catch (error) {
+			if(error.inner){
+				const errors = { name: error.name, message: error.message, errors: {} };
+				error.inner.forEach(element => {
+					errors.errors[element.path] = element.errors
+				});
+				
+				return res.status(400).json(errors);
+			}
+
+			return res.status(error.status_code).json({ error: { message: error.message }});
+		}
 	}
 }
 

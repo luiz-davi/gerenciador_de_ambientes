@@ -29,7 +29,7 @@ class AuthMiddleware {
       req.user = user;
 
       next();
-    } catch (error) {
+    } catch (error) {      
       return res.status(401).json({ error: { message: error.message } })
     }
   }
@@ -43,6 +43,7 @@ class AuthMiddleware {
     const token = authorization.split(' ')[1];
 
     try {
+
       const { id } = jwt.verify(token, process.env.JWT_PASS ?? '') as JwtPayLoad;
 
       const user = await prisma.user.findUnique({

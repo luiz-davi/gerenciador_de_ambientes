@@ -11,6 +11,6 @@ routes.get('/users/show', auth.call_user, UsersController.show);
 routes.patch('/users', auth.call_user, upload.single('file'), UsersController.update);
 routes.delete('/users', auth.call_user, UsersController.destroy);
 routes.post('/users/login', UsersController.login);
-routes.post('/users/validate_email', UsersController.check_token);
+routes.post('/users/validate_email', auth.call_user, UsersController.check_token);
 
 export default routes;
