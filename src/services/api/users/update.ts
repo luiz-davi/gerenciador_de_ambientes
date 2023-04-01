@@ -13,13 +13,13 @@ class UserUpdate extends BaseService{
   async call(data, user: User, file){
 
     if(!await bcrypt.compare(data.current_password, user.password)){
-      
       throw new UnauthrizedError('Confirmação de senha atual falhou.');
     }
 
     try {
       delete data.current_password;
       delete data.confirm_password;
+      delete data?.verified_email;
 
       if (data.password){
         data.password = await bcrypt.hash(data.password, 10);

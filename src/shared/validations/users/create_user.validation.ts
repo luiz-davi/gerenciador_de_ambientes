@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const create_user_validation = yup.object({
+export default yup.object({
   first_name: yup.string().required(),
   last_name: yup.string().required(),
   surname: yup.string().nullable(),

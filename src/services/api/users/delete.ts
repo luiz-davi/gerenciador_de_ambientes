@@ -11,7 +11,6 @@ class UserDelete extends BaseService{
   async call(password: string, user: User){
 
     if(!await bcrypt.compare(password, user.password)){    
-        
       throw new UnauthrizedError(`Operação não autorizada`);
     }
 
@@ -23,7 +22,6 @@ class UserDelete extends BaseService{
       
       return result;
     } catch (error) {
-      
       throw {
         name: 'Data base error',
         error 

@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const update_user_validation = yup.object({
+export default yup.object({
   first_name: yup.string(),
   last_name: yup.string(),
   surname: yup.string(),
