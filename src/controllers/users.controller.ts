@@ -1,11 +1,5 @@
-import create_user from '@services/api/users/create';
-import update_user from '@services/api/users/update';
-import delete_user from '@services/api/users/delete';
-import login from '@services/api/users/login';
-import { create_user_validation } from '@shared/validations/users/create_user.validation';
-import { update_user_validation } from '@shared/validations/users/update_user.validation';
-import { delete_user_validation } from '@shared/validations/users/delete_user.validation';
-import { login_validation } from '@shared/validations/users/login.validation';
+import services from '@services/api/users';
+import validations from '@shared/validations/users';
 import { Request, Response } from 'express';
 
 class UsersController {
@@ -14,10 +8,10 @@ class UsersController {
 		
 		try {
 		
-			await create_user_validation.validate(req.body, { abortEarly: false });
+			await validations.create.validate(req.body, { abortEarly: false });
 	
-			const user = await create_user.call(req.body, req.file);
-			
+			const user = await services.create.call(req.body, req.file);
+
 			return res.status(201).json({
 				message: 'Usuário criado com sucesso',
 				user
@@ -63,9 +57,9 @@ class UsersController {
 
 	async update(req, res){
 		try {
-			await update_user_validation.validate(req.body, { abortEarly: false });
+			await validations.update.validate(req.body, { abortEarly: false });
 	
-			const user = await update_user.call(req.body, req.user, req.file);
+			const user = await services.update.call(req.body, req.user, req.file);
 			
 			return res.status(200).json(user);
 		} catch (error) {	
@@ -87,8 +81,8 @@ class UsersController {
 
 	async destroy(req, res){
 		try {
-			await delete_user_validation.validate(req.body, { abortEarly: false });
-			const result = await delete_user.call(req.body.password, req.user);
+			await validations.destroy.validate(req.body, { abortEarly: false });
+			const result = await services.destroy.call(req.body.password, req.user);
 			
 			return result;
 		} catch (error) {
@@ -109,8 +103,8 @@ class UsersController {
 
 	async login(req: Request, res: Response){
 		try {
-			await login_validation.validate(req.body, { abortEarly: false });
-			const result = await login.call(req.body.password, req.body.email);
+			await validations.login.validate(req.body, { abortEarly: false });
+			const result = await services.login.call(req.body.password, req.body.email);
 			
 			return res.status(200).json(result);
 		} catch (error) {
@@ -126,6 +120,37 @@ class UsersController {
 			
 			return res.status(400).json(errors);
 
+		}
+	}
+
+	async check_token(req: Request, res: Response){
+		try {
+			await validations.check_token.validate(req.body, { abortEarly: false });
+
+			const result = await services.check_token.call(req.user, req.body.token);
+
+			return res.status(200).json({ result: result });
+		} catch (error) {
+			if(error.inner){
+				const errors = { name: error.name, message: error.message, errors: {} };
+				error.inner.forEach(element => {
+					errors.errors[element.path] = element.errors
+				});
+				
+				return res.status(400).json(errors);
+			}
+
+			return res.status(error.status_code).json({ error: { message: error.message }});
+		}
+	}
+
+	async send_email(req: Request, res: Response){
+		try {
+			const result = await services.email.call(req.user);
+
+			return res.status(200).json({ result: result });
+		} catch (error) {
+			return res.status(400).json(error);
 		}
 	}
 }

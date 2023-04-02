@@ -5,6 +5,7 @@ import '@controllers/users.controller';
 import routers from './routes/index';
 import swagger_ui from 'swagger-ui-express';
 import swagger_config from './config/swagger.json';
+import nodemailer from 'nodemailer';
 
 dotenv.config();
 

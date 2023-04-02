@@ -10,11 +10,11 @@ class CreateRenter extends BaseService{
     try {
       data.user_id = user.id;
 
-      await this.prisma.$disconnect();
+      
       return await this.prisma.renter.create({ data });
 
     } catch (error) {
-      await this.prisma.$disconnect();
+      
       throw {
         message: 'Database error',
         error
