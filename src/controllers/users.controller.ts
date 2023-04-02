@@ -129,7 +129,7 @@ class UsersController {
 
 			const result = await services.check_token.call(req.user, req.body.token);
 
-			return res.status(200).json({ result });
+			return res.status(200).json({ result: result });
 		} catch (error) {
 			if(error.inner){
 				const errors = { name: error.name, message: error.message, errors: {} };
@@ -141,6 +141,16 @@ class UsersController {
 			}
 
 			return res.status(error.status_code).json({ error: { message: error.message }});
+		}
+	}
+
+	async send_email(req: Request, res: Response){
+		try {
+			const result = await services.email.call(req.user);
+
+			return res.status(200).json({ result: result });
+		} catch (error) {
+			return res.status(400).json(error);
 		}
 	}
 }

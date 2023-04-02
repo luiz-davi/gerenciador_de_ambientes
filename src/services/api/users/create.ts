@@ -47,7 +47,7 @@ class UserCreate extends BaseService{
         to: user.email,
         subject: 'Token de autenticação com o Gerencial.',
         text: `Olá, ${user.surname || user.first_name}, bem vindo ao Gerencial.\nEste é o seu token de verificação: ${this.token(user.id)}\nAtenção: token válido por apenas 1hora`
-      })
+      });
 
       return user;
     } catch (error) {      

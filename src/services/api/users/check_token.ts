@@ -8,6 +8,13 @@ type JwtPayLoad = {
 
 class CheckTokenService extends BaseService {
   async call(user, token){
+    if(user.verified_email){
+      return {
+        result: false,
+        message: 'Seu email já está verificado.'
+      }
+    }
+
     let token_user;
     try {
       const { id } = jwt.verify(token, process.env.JWT_PASS_EMAIL ?? 'email_pass') as JwtPayLoad;
@@ -16,9 +23,7 @@ class CheckTokenService extends BaseService {
         where: { id }
       });
       
-    } catch (error) {
-      console.log("dfkpmslkfmklfm");
-      
+    } catch (error) {      
       throw new NotFoundError(error.message);
     }
 
