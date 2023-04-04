@@ -61,6 +61,18 @@ class ListingEnvironments extends BaseService{
 
   }
 
+  private async search(search){
+
+    if(!search || search.length === 0) { return {} };
+
+    return {
+      OR: [
+        { name: { contains: search } },
+        { description: { contains: search } }
+      ]
+    }
+  };
+
 }
 
 export default new ListingEnvironments();
