@@ -1,46 +1,9 @@
-import { BaseService } from '@services/api/base_service';
+import create from './create';
+import destroy from './delete';
+import listing from './listing';
+import show from './show';
+import update from './update';
 
-class IndexRenters extends BaseService {
-  constructor(){
-    super()
-  }
-
-  async call (user, search){
-    const renters = this.prisma.user.findUnique({
-      where: { id: user.id },
-      select: {
-        renters: {
-          ...this.search(search),
-          ...{
-              select: {
-              id: true,
-              name: true,
-              email: true,
-              phone: true,
-              cpf: true
-            }
-          }
-        }
-      }
-    });
-    
-    
-    return renters;
-  }
-
-  private search(search){
-    if(!search) { return };
-
-    return {
-      where: {
-        OR: [
-          { name: { contains: search }},
-          { email: { contains: search }},
-          { cpf: { contains: search }},
-        ]
-      }
-    };
-  }
+export default {
+  create, destroy, listing, show, update
 }
-
-export default new IndexRenters();

@@ -22,18 +22,6 @@ export class BaseService {
     };
   }
 
-  async search(search){
-
-    if(!search || search.length === 0) { return {} };
-
-    return {
-      OR: [
-        { name: { contains: search } },
-        { description: { contains: search } }
-      ]
-    }
-  };
-
   async ordering(ordering){
     if(!ordering || ordering.length === 0) { return {
       orderBy: [

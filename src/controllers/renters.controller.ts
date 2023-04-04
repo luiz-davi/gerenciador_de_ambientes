@@ -1,11 +1,6 @@
 import { Request, Response } from "express-serve-static-core";
-import create_renter from '@services/api/renters/create'
-import index_renters from '@services/api/renters/index';
-import show_renters from '@services/api/renters/show';
-import update_renter from '@services/api/renters/update';
-import delete_renter from '@services/api/renters/delete';
+import services from '@services/api/renters'
 import validations from '@shared/validations/renters'
-import { stat } from "fs";
 
 class RentersController {
 
@@ -13,7 +8,7 @@ class RentersController {
     try {
       await validations.create_renter_validation.validate(req.body, { abortEarly: false });
 
-      const renter = await create_renter.call(req.body, req.user);
+      const renter = await services.create.call(req.body, req.user);
 
       return res.status(201).json({ renter });
     } catch (error) {
@@ -32,14 +27,14 @@ class RentersController {
   }
 
   async index(req: Request, res: Response){
-    const renters = await index_renters.call(req.user, req.query.search);
+    const renters = await services.listing.call(req.user, req.query.search);
 
     return res.status(200).json(renters)
   }
 
   async show(req: Request, res: Response){
     try {
-      const renter = await show_renters.call(Number(req.params.id), req.user);
+      const renter = await services.show.call(Number(req.params.id), req.user);
       
       return res.status(200).json({ renter });
     } catch (error) {
@@ -56,7 +51,7 @@ class RentersController {
     try {
       await validations.update_renter_validation.validate(req.body, { abortEarly: false });
 
-      const renter = await update_renter.call(Number(req.params.id), req.user, req.body);
+      const renter = await services.update.call(Number(req.params.id), req.user, req.body);
     
       return res.status(200).json({ renter });
     } catch (error) {
@@ -81,7 +76,7 @@ class RentersController {
     try {
       await validations.update_renter_validation.validate(req.body, { abortEarly: false });
 
-      const result = await delete_renter.call(Number(req.params.id), req.user, req.body);
+      const result = await services.destroy.call(Number(req.params.id), req.user, req.body);
 
       return res.status(200).json({ result });
     } catch (error) {
