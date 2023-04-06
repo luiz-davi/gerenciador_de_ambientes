@@ -20,6 +20,7 @@ app.use(routers.renters);
 app.use(routers.environments);
 app.use(routers.itens);
 app.use(routers.general);
+app.use(routers.rent);
 
 app.listen(3333, () => {
 	console.log('Servidor rodando na porta 3333 🚀');

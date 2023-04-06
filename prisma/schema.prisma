@@ -25,6 +25,7 @@ model User {
 
   renters      Renter[]
   environments Environment[]
+  rents        Rent[]
 
   @@map("users")
 }
@@ -39,6 +40,7 @@ model Renter {
   locator    User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  rents      Rent[]
 
   @@map("renters")
 }
@@ -51,6 +53,7 @@ model Environment {
   pictures    String[]
   locator_id  Int
   locator     User     @relation(fields: [locator_id], references: [id], onDelete: Cascade)
+  rented      Boolean  @default(false)
   pool        Boolean  @default(false)
   grill       Boolean  @default(false)
   playground  Boolean  @default(false)
@@ -59,6 +62,7 @@ model Environment {
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
   itens       Item[]
+  Rent        Rent[]
 
   @@map("environments")
 }
@@ -74,4 +78,19 @@ model Item {
   updated_at     DateTime    @updatedAt
 
   @@map("itens")
+}
+
+model Rent {
+  id             Int         @id @default(autoincrement())
+  total          Float
+  start          DateTime
+  end            DateTime
+  locator_id     Int
+  locator        User        @relation(fields: [locator_id], references: [id], onDelete: Cascade)
+  renter_id      Int?
+  renter         Renter?     @relation(fields: [renter_id], references: [id])
+  environment_id Int
+  environment    Environment @relation(fields: [environment_id], references: [id])
+  created_at     DateTime    @default(now())
+  updated_at     DateTime    @updatedAt
 }
