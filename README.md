@@ -17,5 +17,9 @@ A API fornece um serviço para gerenciamento de ambientes de lazer. É possível
 + Firebase
 > Já com o seu projeto criado no firebase, vá na `engrenagem(configurações)->Configurações do projeto->Contas de serviço->Gerar uma nova chave privada`. Será feito um download de um json, e esse será colocado na pasta `./src/config/firebase.json`.
 
+## Email
++ Nodemailer
+> Para utilizar o nodemailer, é necessário criar uma chave de autenticação com um email válido (seguir as orientações do gmail para tal). Com essa chave gerada, adicionar ela no arquivo `.env` que vc duplicará do arquivo `env.example`, na chave `EMAIL_PASSWORD`, assim como seu email na chave `EMAIl`. É importante também gerar um hash diferente para o `JWT_PASS_EMAIL`, comparado com o `JWT_PASS`.
+
 # Swagger
 Para colocar o servidor de pé, rodar o comando `yarn dev` no terminal. Após o servidor ligados, acessar a rota `localhost:3333/documentation`
